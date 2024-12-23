@@ -17,7 +17,6 @@ const App = () => {
   
     const counts = Object.values(frequency);
   
-    // Function to split numbers into digits and add them to the array
     const splitAndAddDigits = (num, targetArray) => {
       num.toString()
         .split("")
@@ -31,11 +30,9 @@ const App = () => {
   
       while (start <= end) {
         if (start === end) {
-          // Split single number into digits and add to newCounts
           splitAndAddDigits(counts[start], newCounts);
         } else {
           const sum = counts[start] + counts[end];
-          // Split sum into digits and add to newCounts
           splitAndAddDigits(sum, newCounts);
         }
         start++;
