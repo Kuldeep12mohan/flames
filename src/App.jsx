@@ -8,34 +8,45 @@ const App = () => {
   const calculateLove = (name1, name2) => {
     const combinedNames = name1.toLowerCase() + name2.toLowerCase();
     const frequency = {};
+  
     for (const char of combinedNames) {
       if (char !== " ") {
         frequency[char] = (frequency[char] || 0) + 1;
       }
     }
-
+  
     const counts = Object.values(frequency);
-
+  
+    // Function to split numbers into digits and add them to the array
+    const splitAndAddDigits = (num, targetArray) => {
+      num.toString()
+        .split("")
+        .forEach((digit) => targetArray.push(parseInt(digit, 10)));
+    };
+  
     while (counts.length > 2) {
       const newCounts = [];
       let start = 0,
         end = counts.length - 1;
-
+  
       while (start <= end) {
         if (start === end) {
-          newCounts.push(counts[start]);
+          // Split single number into digits and add to newCounts
+          splitAndAddDigits(counts[start], newCounts);
         } else {
-          newCounts.push(counts[start] + counts[end]);
+          const sum = counts[start] + counts[end];
+          // Split sum into digits and add to newCounts
+          splitAndAddDigits(sum, newCounts);
         }
         start++;
         end--;
       }
-
+  
       counts.splice(0, counts.length, ...newCounts);
     }
+  
     setPercentage(parseInt(counts.join(""), 10));
-  };
-
+  };  
   return (
     <div className="min-h-screen flex items-center justify-center bg-center bg-cover bg-[url('https://c4.wallpaperflare.com/wallpaper/204/497/101/heart-love-romance-dark-background-feelings-wallpaper-preview.jpg')]">
       <div className="z-20 p-8 rounded-lg shadow-lg w-full max-w-md">
